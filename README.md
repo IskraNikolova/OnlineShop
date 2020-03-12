@@ -1,2 +1,2 @@
 # OnlineShop
-Online shop
+Simple online shop-system.
