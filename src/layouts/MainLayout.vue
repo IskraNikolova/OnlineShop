@@ -14,7 +14,11 @@
         <q-toolbar-title class="elegance">
           <div style="cursor: pointer;" @click="$router.push('/')">Radimm</div>
         </q-toolbar-title>
-
+        <q-tabs style="margin-right: 30%;" no-caps active-color="primary" indicator-color="transparent" class="text-grey">
+          <q-route-tab to="/">Начало</q-route-tab>
+          <q-route-tab to="/us">За Нас</q-route-tab>
+          <q-route-tab to="/contacts">Контакти</q-route-tab>
+        </q-tabs>
         <div>
           <img class="q-pa-xs" src="~assets/user.png" style="width:30vw;max-width:30px;">
           <img class="q-pa-xs" src="~assets/heart.png" style="width:30vw;max-width:30px;">
@@ -69,12 +73,17 @@
         />
       </q-list>
     </q-drawer>
-    <q-footer bordered class="bg-white text-primary">
-      <q-tabs no-caps active-color="primary" indicator-color="transparent" class="text-grey">
-        <q-route-tab to="/">Общи условия</q-route-tab>
-        <q-route-tab to="/privacy">Поверителност</q-route-tab>
-        <q-route-tab to="/privacy">Контакти</q-route-tab>
-      </q-tabs>
+    <q-footer reveal bordered class="bg-white text-primary">
+      <q-toolbar>
+        <q-tabs no-caps active-color="primary" indicator-color="transparent" class="text-grey">
+          <q-route-tab to="/">Общи условия</q-route-tab>
+          <q-route-tab to="/privacy">Поверителност</q-route-tab>
+          <q-route-tab to="/privacy">Контакти</q-route-tab>
+        </q-tabs>
+      </q-toolbar>
+      <q-toolbar class="q-pl-md">
+        <small>Radimm, Inc. © 2020 All Rights Reserved.</small>
+      </q-toolbar>
     </q-footer>
     <q-page-container class="q-pa-xl">
       <router-view />
@@ -118,19 +127,19 @@ export default {
       category: [
         {
           title: 'Пръстени',
-          link: 'https://www.facebook.com/radiminchevm/'
+          link: '/'
         },
         {
           title: 'Гривни',
-          link: 'https://www.facebook.com/radiminchevm/'
+          link: '/'
         },
         {
           title: 'Обеци',
-          link: 'https://www.facebook.com/radiminchevm/'
+          link: '/'
         },
         {
           title: 'Медальони',
-          link: 'https://www.facebook.com/radiminchevm/'
+          link: '/'
         }
       ],
       menu: [
