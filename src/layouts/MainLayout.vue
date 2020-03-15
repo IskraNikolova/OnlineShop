@@ -20,10 +20,15 @@
           <q-route-tab to="/contacts">Контакти</q-route-tab>
         </q-tabs>
         <div>
-          <img class="q-pa-xs" src="~assets/user.png" style="width:30vw;max-width:30px;">
-          <img class="q-pa-xs" src="~assets/heart.png" style="width:30vw;max-width:30px;">
-          <img class="q-pa-xs" src="~assets/bag.png" style="width:30vw;max-width:30px;">
-          <img class="q-pa-xs" src="~assets/search.png" style="width:30vw;max-width:30px;">
+          <img v-if="!isActive" class="q-pa-xs" src="~assets/user.png" style="width:30vw;max-width:30px;margin-right: 10px;">
+          <img v-if="!isActive" class="q-pa-xs" src="~assets/heart.png" style="width:30vw;max-width:30px;margin-right: 10px;">
+          <img v-if="!isActive" class="q-pa-xs" src="~assets/bag.png" style="width:30vw;max-width:30px;margin-right: 10px;">
+          <q-input v-if="isActive" style="height: 20px;" v-model="text">
+            <template v-slot:append>
+              <img class="q-pa-xs" src="~assets/search.png" @click="isActive = false" style="width:30vw;max-width:30px;">
+            </template>
+          </q-input>
+          <img v-if="!isActive" class="q-pa-xs" src="~assets/search.png" @click="isActive = true" style="width:30vw;max-width:30px;">
         </div>
       </q-toolbar>
     </q-header>
@@ -34,18 +39,6 @@
       :breakpoint="500"
     >
       <q-list>
-        <!--<q-item-label
-          header
-          class="text-grey-8"
-        >
-          Меню
-        </q-item-label>
-        <EssentialLink
-          v-for="link in menu"
-          :key="link.title"
-          v-bind="link"
-        />
-        <q-separator />-->
         <br /><br />
         <q-item-label
           header
@@ -81,10 +74,8 @@
           <q-route-tab to="/privacy">Контакти</q-route-tab>
         </q-tabs>
       </q-toolbar>
-      <q-toolbar class="q-pl-md">
-        <small>Radimm, Inc. © 2020 All Rights Reserved.</small>
-      </q-toolbar>
     </q-footer>
+    <q-footer reveal class="bg-white text-grey"><small>Radimm, Inc. © 2020 All Rights Reserved.</small></q-footer>
     <q-page-container class="q-pa-xl">
       <router-view />
     </q-page-container>
@@ -142,25 +133,8 @@ export default {
           link: '/'
         }
       ],
-      menu: [
-        {
-          title: 'Home',
-          icon: 'home',
-          link: '/'
-        },
-        {
-          title: 'Scype',
-          caption: '@radiimariana',
-          icon: 'message',
-          link: 'skype:radiimariana?chat'
-        },
-        {
-          title: 'Mail',
-          caption: '@radimarinov',
-          icon: 'mail',
-          link: 'mailto:radimarinov@gmail.com'
-        }
-      ]
+      text: '',
+      isActive: false
     }
   }
 }
