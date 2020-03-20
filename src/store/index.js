@@ -1,9 +1,21 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPersistence from 'vuex-persist'
 
-// import example from './module-example'
+import app from './app'
+import ui from './ui'
 
 Vue.use(Vuex)
+
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage,
+  reducer: (state) => {
+    const persistState = { ...state }
+    // don't persist UI state
+    delete persistState.ui
+    return persistState
+  }
+})
 
 /*
  * If not building with SSR mode, you can
@@ -13,17 +25,18 @@ Vue.use(Vuex)
  * async/await or return a Promise which resolves
  * with the Store instance.
  */
+const Store = new Vuex.Store({
+  modules: {
+    app,
+    ui
+  },
+  plugins: [vuexLocal.plugin],
+  strict: process.env.DEV
+})
 
-export default function (/* { ssrContext } */) {
-  const Store = new Vuex.Store({
-    modules: {
-      // example
-    },
+export default Store
 
-    // enable strict mode (adds overhead!)
-    // for dev mode only
-    strict: process.env.DEV
-  })
-
-  return Store
+const initialStateCopy = JSON.parse(JSON.stringify(Store.state))
+export function resetState () {
+  Store.replaceState(JSON.parse(JSON.stringify(initialStateCopy)))
 }
