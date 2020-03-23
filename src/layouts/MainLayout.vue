@@ -19,7 +19,7 @@
           <q-route-tab to="/">{{ constants.home }}</q-route-tab>
           <q-route-tab to="/us">{{ constants.forUs }}</q-route-tab>
           <q-route-tab to="/contacts">{{ constants.contacts }}</q-route-tab>
-          <q-btn v-if="!leftDrawerOpen" flat no-caps label="Категория Продукти">
+          <q-btn v-if="!leftDrawerOpen" flat no-caps :label="constants.category">
             <q-menu>
               <q-list style="min-width: 100px">
                 <q-btn  no-caps flat @click="isRing=!isRing">{{ constants.rings }}</q-btn>
@@ -106,10 +106,10 @@
           </q-btn>
         </q-tabs>
 
-        <div>
-          <img v-if="!isActive" class="q-pa-xs" src="~assets/user.png" style="width:30vw;max-width:30px;margin-right: 10px;">
-          <img v-if="!isActive" class="q-pa-xs" src="~assets/heart.png" style="width:30vw;max-width:30px;margin-right: 10px;">
-          <img v-if="!isActive" class="q-pa-xs" src="~assets/bag.png" style="width:30vw;max-width:30px;margin-right: 10px;">
+        <div style="margin-right: 10px;">
+          <img v-if="!isActive" class="q-pa-xs" src="~assets/user.png" style="width:30vw;max-width:30px;">
+          <img v-if="!isActive" class="q-pa-xs" src="~assets/heart.png" style="width:30vw;max-width:30px;">
+          <img v-if="!isActive" class="q-pa-xs" src="~assets/bag.png" style="width:30vw;max-width:30px;">
           <q-input v-if="isActive" style="height: 20px;" v-model="text">
             <template v-slot:append>
               <img class="q-pa-xs" src="~assets/search.png" @click="isActive = false" style="width:30vw;max-width:30px;">

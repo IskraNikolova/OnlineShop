@@ -13,6 +13,13 @@ const routes = [
     children: [
       { path: '/privacy', component: () => import('pages/Privacy.vue') }
     ]
+  },
+  {
+    path: '/details',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '/details', component: () => import('pages/Details.vue') }
+    ]
   }
 ]
 

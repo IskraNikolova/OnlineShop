@@ -1,10 +1,14 @@
 <template>
-  <q-page class="q-pa-xl">
-    <div class="absolute-right q-pr-xl">
-      <q-btn flat icon="view_module" @click="col=4"/>
-      <q-btn flat @click="col=3" icon="view_comfy" />
-      <q-btn flat @click="col=2" icon="img:statics/view_items.png" />
-    </div>
+  <div class="row">
+    <q-item
+        clickable
+        v-for="i in images"
+        v-bind:key="i"
+        class="col-2 col-sm-6"
+    >
+      <q-img :src="'./../statics/res/' + i + '.png'"   />
+    </q-item>
+    <div class="text-h7" style="margin-top: 12px;margin-bottom: 12px;">{{ constants.alsoLove }}</div>
     <div class="row">
       <div :class="'col-' + col + ' q-pr-md'" v-for="i in images" v-bind:key="i">
         <CustomItemCard
@@ -16,23 +20,27 @@
         <br />
       </div>
     </div>
-  </q-page>
+  </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import CustomItemCard from './../components/CustomItemCard'
 
 export default {
-  name: 'PageIndex',
+  name: 'GalleryItems',
   components: {
     CustomItemCard
   },
-  data () {
-    return {
-      col: 2,
-      // todo mock data delete
-      images: [6, 17, 21, 23, 33, 42, 46, 55, 62, 76, 81, 85, 86, 88, 89, 90, 91, 92, 93, 94, 95, 97, 98, 102, 104, 106, 107, 108,
-        109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120]
+  computed: {
+    ...mapGetters([
+      'constants'
+    ])
+  },
+  props: {
+    images: {
+      type: Array,
+      required: true
     }
   },
   methods: {

@@ -12,9 +12,14 @@
     "privacy": "Confidentiality",
     "withStones": "with stones",
     "withoutStones": "without stones",
-    "addToBag": "Quickshop",
+    "addToBag": "Add To Bag",
     "seeMore": "See More",
     "favorite": "Favorite",
+    "alsoLove": "YOU MAY ALSO LOVE",
+    "description": "Description",
+    "selectSize": "SELECT SIZE",
+    "sizeChart": "Size Chart",
+    "qt": "QT.",
     "privacyText": [
       {
         "title": "Относно събираната от нас информация",
