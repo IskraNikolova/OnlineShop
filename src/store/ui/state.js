@@ -1,6 +1,6 @@
 
 export default function () {
   return {
-    // choiceWalletMenu: { isOpen: false }
+    sizeTableDialog: { isOpen: false }
   }
 }

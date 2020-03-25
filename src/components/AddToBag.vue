@@ -9,20 +9,70 @@
       <q-card-section horizontal>
         <q-card-section>
           <div>{{ constants.selectSize }}</div>
-          <div class="row">
-            <div v-for="size in item.size" v-bind:key="size" class="col">
+          <div class="row" v-if="item.type==='ring'" style="margin-left: -15px;">
+            <div v-for="size in item.size" v-bind:key="size" class="col" >
               <q-btn flat :label="size" size="md" @click="onSelectSize" />
             </div>
+            <q-btn flat size="md" no-caps :label="constants.custom" @click="isSlideView=true"/>
+            <q-dialog
+              v-model="isSlideView"
+            >
+            <q-card style="width: 350px;">
+              <q-card-section>
+                <div class="col-8" style="text-align:right;">
+                  <q-btn flat no-caps label="cm" @click="isCm=true"/>|<q-btn flat no-caps label="inches" @click="isCm=false"/>
+                </div>
+              </q-card-section>
+              <q-card-section>
+                <q-item>
+                  <q-item-section avatar>
+                    {{ constants.s }}
+                  </q-item-section>
+                  <q-item-section>
+                    <q-slider
+                      v-if="isCm"
+                      v-model="customSize"
+                      :min="minCm"
+                      :max="maxCm"
+                      :step="0.1"
+                      snap
+                      label
+                      label-always
+                      :label-value="customSize + ' cm'"
+                      color="teal"
+                    />
+                    <q-slider
+                      v-else
+                      v-model="customSize"
+                      :min="minIn"
+                      :max="maxIn"
+                      :step="0.05"
+                      snap
+                      label
+                      label-always
+                      :label-value="customSize + ' in'"
+                      color="teal"
+                    />
+                  </q-item-section>
+                </q-item>
+              </q-card-section>
+              <q-card-actions>
+              </q-card-actions>
+            </q-card>
+            </q-dialog>
           </div>
+          <div v-else>{{ constants.size }}</div>
         </q-card-section>
         <!--todo make clickable and add underline style-->
         <q-card-section v-if="item.type==='ring'" class=" text-grey">
-          <span @click="openSizeTable">{{ constants.sizeChart }}</span>
+          <q-btn flat no-caps size="xs" @click="openSizeTable">{{ constants.sizeChart }}</q-btn>
         </q-card-section>
       </q-card-section>
       <q-card-section horizontal>
         <q-card-section>
-          <div style="margin-top: 2px;"><q-img src="./../statics/res/111.png" style="width:30vw;max-width:30px;"/></div>
+          <div style="margin-top: 2px;">
+            <q-img src="./../statics/res/111.png" style="width:30vw;max-width:30px;"/>
+          </div>
         </q-card-section>
         <q-card-actions align="right" style="margin-left: 20%;">
           <div class="row">
@@ -33,10 +83,10 @@
           </div>
         </q-card-actions>
       </q-card-section>
-
-      <q-card-actions>
-        <q-btn outline icon="favorite_border"/>
-        <q-btn :label="constants.addToBag" color="black" style="width: 200px;" />
+      <br />
+      <q-card-actions class="q-pl-md">
+        <q-btn outline icon="favorite_border" @click="onAddToFavority" />
+        <q-btn :label="constants.addToBag" color="black" style="width: 220px;margin-left:7px;" @click="onAddToBag" />
       </q-card-actions>
     </q-card>
     <div style="text-align: center;margin-top: 5px;">
@@ -69,14 +119,20 @@
     <div v-if="!isUp" class="q-mt-xl">
       {{ item.description }}
     </div>
+    <SizeTableDialog ref="sizeTableDialog" />
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
+import SizeTableDialog from './SizeTableDialog'
+
 export default {
   name: 'AddToBag',
+  components: {
+    SizeTableDialog
+  },
   computed: {
     ...mapGetters([
       'constants'
@@ -84,15 +140,21 @@ export default {
   },
   data () {
     return {
+      isSlideView: false,
       qt: 1,
       isUp: false,
-      url: 'http://localhost:8080/#/details'
+      url: 'http://localhost:8080/#/details',
+      customSize: 1.9,
+      isCm: true,
+      minCm: 1.9,
+      maxCm: 3.0,
+      minIn: 0.6,
+      maxIn: 1.2
     }
   },
   methods: {
     openSizeTable () {
-      // todo open size table
-      alert('hi')
+      this.$refs.sizeTableDialog.open()
     },
     onSelectSize () {
       alert('hi')
@@ -101,6 +163,12 @@ export default {
       if (this.qt > 1) {
         this.qt--
       }
+    },
+    onAddToFavority () {
+      // todo
+    },
+    onAddToBag () {
+      // todo
     }
   },
   props: {

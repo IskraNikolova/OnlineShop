@@ -10,12 +10,12 @@
     </q-item>
     <div class="text-h7" style="margin-top: 12px;margin-bottom: 12px;">{{ constants.alsoLove }}</div>
     <div class="row">
-      <div :class="'col-' + col + ' q-pr-md'" v-for="i in images" v-bind:key="i">
+      <div class="col-3 q-pr-md" v-for="i in images" v-bind:key="i">
         <CustomItemCard
-          v-bind:image="images[i]"
-          v-bind:index="i"
-          @add="onDetails(images[i])"
-          @details="onDetails(images[i])"
+          v-bind:image="i"
+          v-bind:size="2"
+          @add="onDetails(i)"
+          @details="onDetails(i)"
         />
         <br />
       </div>

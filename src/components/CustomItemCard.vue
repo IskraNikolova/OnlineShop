@@ -1,18 +1,18 @@
 <template>
   <q-card @click="onDetailsClick()">
-    <q-img :src="'./../statics/res/' + index + '.png'" native-context-menu @mouseover="hover(index)" :id="index" @mouseleave="leave(index)">
-    <q-icon :class="'absolute all-pointer-events' + ' ' + index" size="22px" name="favorite_border" color="white" style="top: 8px; left: 8px;display:none;">
+    <q-img :src="'./../statics/res/' + image + '.png'" native-context-menu @mouseover="hover(image)" :id="image" @mouseleave="leave(image)">
+    <q-icon :class="'absolute all-pointer-events' + ' ' + image" size="22px" name="favorite_border" color="white" style="top: 8px; left: 8px;display:none;">
       <q-tooltip :content-style="{ color: '#000000', background: '#ffffff' }">
         {{ constants.favorite }}
       </q-tooltip>
     </q-icon>
-    <q-btn flat @click="onAddClick()" :class="'absolute all-pointer-events' + ' ' + index" icon="img:statics/white-bag.png" style="width: 22px;right: 8px;display:none;">
+    <q-btn flat @click="onAddClick()" :class="'absolute all-pointer-events' + ' ' + image" icon="img:statics/white-bag.png" style="width: 22px;right: 8px;display:none;">
       <q-tooltip :content-style="{ color: '#000000', background: '#ffffff' }">
         {{ constants.addToBag }}
       </q-tooltip>
     </q-btn>
-    <div :class="'absolute-bottom text-subtitle1 text-center' + ' ' + index" style="display:none;">
-      <div :style="'font-size:' +  (col * 30) + '%;'">Име на продукта</div>
+    <div :class="'absolute-bottom text-subtitle1 text-center' + ' ' + image" style="display:none;">
+      <div :style="'font-size:' +  (size * 30) + '%;'">Име на продукта</div>
       <q-tooltip :content-style="{ color: '#000000', background: '#ffffff' }">
         {{ constants.seeMore }}
       </q-tooltip>
@@ -43,10 +43,10 @@ export default {
   },
   props: {
     image: {
-      type: String,
+      type: Number,
       required: true
     },
-    index: {
+    size: {
       type: Number,
       required: true
     }

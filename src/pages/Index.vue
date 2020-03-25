@@ -8,10 +8,10 @@
     <div class="row">
       <div :class="'col-' + col + ' q-pr-md'" v-for="i in images" v-bind:key="i">
         <CustomItemCard
-          v-bind:image="images[i]"
-          v-bind:index="i"
-          @add="onDetails(images[i])"
-          @details="onDetails(images[i])"
+          v-bind:image="i"
+          v-bind:size="col"
+          @add="onDetails(i)"
+          @details="onDetails(i)"
         />
         <br />
       </div>
