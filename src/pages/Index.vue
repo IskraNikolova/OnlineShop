@@ -10,11 +10,12 @@
         <CustomItemCard
           v-bind:image="i"
           v-bind:size="col"
-          @add="onDetails(i)"
+          @add="onAddToBag(i)"
           @details="onDetails(i)"
         />
         <br />
       </div>
+      <AddToBagDialog ref="addToBagDialog" />
     </div>
   </q-page>
 </template>
@@ -22,10 +23,13 @@
 <script>
 import CustomItemCard from './../components/CustomItemCard'
 
+import AddToBagDialog from './../components/AddToBagDialog'
+
 export default {
   name: 'PageIndex',
   components: {
-    CustomItemCard
+    CustomItemCard,
+    AddToBagDialog
   },
   data () {
     return {
@@ -38,6 +42,7 @@ export default {
   methods: {
     onAddToBag (item) {
       // todo
+      this.$refs.addToBagDialog.open()
     },
     onDetails (item) {
       // todo add to store current item

@@ -14,23 +14,27 @@
         <CustomItemCard
           v-bind:image="i"
           v-bind:size="2"
-          @add="onDetails(i)"
+          @add="onAddToBag(i)"
           @details="onDetails(i)"
         />
         <br />
       </div>
     </div>
+    <AddToBagDialog ref="addToBagDialog" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+
 import CustomItemCard from './../components/CustomItemCard'
+import AddToBagDialog from './../components/AddToBagDialog'
 
 export default {
   name: 'GalleryItems',
   components: {
-    CustomItemCard
+    CustomItemCard,
+    AddToBagDialog
   },
   computed: {
     ...mapGetters([
@@ -46,6 +50,7 @@ export default {
   methods: {
     onAddToBag (item) {
       // todo
+      this.$refs.addToBagDialog.open()
     },
     onDetails (item) {
       // todo add to store current item

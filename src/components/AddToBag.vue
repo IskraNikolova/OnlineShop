@@ -16,6 +16,7 @@
             <q-btn flat size="md" no-caps :label="constants.custom" @click="isSlideView=true"/>
             <q-dialog
               v-model="isSlideView"
+              square
             >
             <q-card style="width: 350px;">
               <q-card-section>
@@ -89,6 +90,7 @@
         <q-btn :label="constants.addToBag" color="black" style="width: 220px;margin-left:7px;" @click="onAddToBag" />
       </q-card-actions>
     </q-card>
+    <q-btn :label="'+ ' + constants.more" flat style="width: 220px;" @click="onDetailsClick" v-if="!isViewDescription" />
     <div style="text-align: center;margin-top: 5px;">
       <!--todo add mesenger-->
       <a :href='"http://www.facebook.com/sharer.php?u=" +  encodeURIComponent(url)' target="_blank">
@@ -107,17 +109,19 @@
       </a>
     </div>
     <q-separator class="q-mt-md q-mb-md"/>
-    <div class="row">
-      <div class="col-5">
-        {{ constants.description.toUpperCase() }}
+    <div v-if="isViewDescription">
+      <div class="row">
+        <div class="col-5">
+          {{ constants.description.toUpperCase() }}
+        </div>
+        <div class="col-7" style="text-align: right;">
+          <q-icon v-if="!isUp" name="keyboard_arrow_down" @click="isUp=!isUp"/>
+          <q-icon v-if="isUp" name="keyboard_arrow_up" @click="isUp=!isUp"/>
+        </div>
       </div>
-      <div class="col-7" style="text-align: right;">
-        <q-icon v-if="!isUp" name="keyboard_arrow_down" @click="isUp=!isUp"/>
-        <q-icon v-if="isUp" name="keyboard_arrow_up" @click="isUp=!isUp"/>
+      <div v-if="!isUp" class="q-mt-xl">
+        {{ item.description }}
       </div>
-    </div>
-    <div v-if="!isUp" class="q-mt-xl">
-      {{ item.description }}
     </div>
     <SizeTableDialog ref="sizeTableDialog" />
     </div>
@@ -156,6 +160,9 @@ export default {
     openSizeTable () {
       this.$refs.sizeTableDialog.open()
     },
+    onDetailsClick () {
+      this.$emit('details')
+    },
     onSelectSize () {
       alert('hi')
     },
@@ -174,6 +181,10 @@ export default {
   props: {
     item: {
       type: Object,
+      required: true
+    },
+    isViewDescription: {
+      type: Boolean,
       required: true
     }
   }

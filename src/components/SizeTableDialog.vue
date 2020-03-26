@@ -2,6 +2,7 @@
   <q-dialog
     v-model="ui.sizeTableDialog.isOpen"
     full-width
+    square
   >
   <q-card>
     <q-card-section>

@@ -106,17 +106,24 @@
           </q-btn>
         </q-tabs>
 
-        <div style="margin-right: 10px;">
-          <img v-if="!isActive" class="q-pa-xs" src="~assets/user.png" style="width:30vw;max-width:30px;">
-          <img v-if="!isActive" class="q-pa-xs" src="~assets/heart.png" style="width:30vw;max-width:30px;">
-          <img v-if="!isActive" class="q-pa-xs" src="~assets/bag.png" style="width:30vw;max-width:30px;">
-          <q-input v-if="isActive" style="height: 20px;" v-model="text">
-            <template v-slot:append>
-              <img class="q-pa-xs" src="~assets/search.png" @click="isActive = false" style="width:30vw;max-width:30px;">
-            </template>
-          </q-input>
-          <img v-if="!isActive" class="q-pa-xs" src="~assets/search.png" @click="isActive = true" style="width:30vw;max-width:30px;">
-        </div>
+        <q-img v-if="!isActive" src="~assets/user.png" id="mImg" />
+        <q-img v-if="!isActive" src="~assets/heart.png" id="mImg" />
+        <q-img v-if="!isActive" src="~assets/bag.png" id="mImg" >
+          <q-menu square self="top left" :content-style="{ width: '38%' }">
+            <div class="no-wrap q-pa-md">
+                <div class="text-h7 q-mb-md">{{ constants.goToShoppingBag }}[2]</div>
+                <div v-for="article in mockData" v-bind:key="article.id">
+                  <BagArticle v-bind:article="article" />
+                </div>
+            </div>
+          </q-menu>
+        </q-img>
+        <q-input v-if="isActive" style="height: 20px;" v-model="text">
+          <template v-slot:append>
+            <img class="q-pa-xs" src="~assets/search.png" @click="isActive = false" style="width:30vw;max-width:30px;">
+          </template>
+        </q-input>
+        <img v-if="!isActive" class="q-pa-xs" src="~assets/search.png" @click="isActive = true" style="width:30vw;max-width:30px;">
       </q-toolbar>
     </q-header>
     <q-drawer
@@ -252,12 +259,14 @@ import { mapGetters } from 'vuex'
 import { SET_LANGUAGE } from './../store/app/types'
 
 import EssentialLink from 'components/EssentialLink'
+import BagArticle from 'components/BagArticle'
 
 export default {
   name: 'MainLayout',
 
   components: {
-    EssentialLink
+    EssentialLink,
+    BagArticle
   },
   computed: {
     ...mapGetters([
@@ -272,6 +281,23 @@ export default {
       isBracelets: false,
       isMedallions: false,
       leftDrawerOpen: false,
+      // todo change with data
+      mockData: [
+        {
+          id: 1,
+          name: 'Пръстен с аметист',
+          quantity: 1,
+          price: 56.00,
+          image: 88
+        },
+        {
+          id: 2,
+          name: 'Обеци с корал',
+          quantity: 3,
+          price: 26.00,
+          image: 168
+        }
+      ],
       essentialLinks: [
         {
           title: 'Facebook',
@@ -304,3 +330,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  #mImg {
+    width:20vw;
+    max-width:20px;
+    margin:5px;
+  }
+</style>

@@ -1,32 +1,43 @@
 <template>
-  <q-page class="q-pa-xl">
-   <div class="row">
-    <div class="col-8">
-      <GalleryItems v-bind:images="images"/>
-    </div>
-    <div class="col-4">
-      <AddToBag v-bind:item="item" v-bind:isViewDescription="true"/>
-    </div>
-   </div>
-  </q-page>
+  <q-dialog
+    v-model="ui.addToBagDialog.isOpen"
+    full-width
+    square
+  >
+  <q-card>
+    <q-card-section class="row items-center q-pb-none">
+        <q-space />
+        <q-btn icon="close" flat round dense v-close-popup />
+      </q-card-section>
+    <q-card-section class="q-pt-none">
+     <div class="row">
+      <div class="col">
+        <q-img src="./../statics/res/483.png" style="width:430vw;max-width:430px;margin-left:22px;" />
+      </div>
+      <div class="col">
+        <AddToBag v-bind:item="item" v-bind:isViewDescription="false" @details="onDetails(item)"/>
+      </div>
+     </div>
+    </q-card-section>
+  </q-card>
+  </q-dialog>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
-import GalleryItems from './../components/GalleryItems'
-import AddToBag from './../components/AddToBag'
+import AddToBag from './AddToBag'
+
+import { OPEN_ADD_TO_BAG_DIALOG, CLOSE_ADD_TO_BAG_DIALOG } from '../store/ui/types'
 
 export default {
-  name: 'PageDetails',
+  name: 'AddToBagDialog',
   components: {
-    GalleryItems,
     AddToBag
   },
   data () {
     return {
-      // todo mock data delete
-      images: [111, 112, 6, 127],
+      // todo delete
       item: {
         id: 1,
         type: 'ring',
@@ -50,10 +61,24 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'ui',
       'constants'
     ])
   },
   methods: {
+    ...mapActions({
+      open: OPEN_ADD_TO_BAG_DIALOG,
+      close: CLOSE_ADD_TO_BAG_DIALOG
+    }),
+    onDetails (item) {
+      // todo
+      this.close()
+      this.$router.push('/details')
+    }
   }
 }
 </script>
+
+<style>
+
+</style>
