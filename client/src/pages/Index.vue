@@ -1,9 +1,11 @@
 <template>
-  <q-page class="q-pa-xl">
+  <q-page class="q-pa-xl" style="margin-top: 50px;">
     <div class="absolute-right q-pr-xl">
       <q-btn flat icon="view_module" @click="col=4"/>
       <q-btn flat @click="col=3" icon="view_comfy" />
-      <q-btn flat @click="col=2" icon="img:statics/view_items.png" />
+      <q-btn flat @click="col=2">
+        <q-img src="statics/view_items.png" style="width:30vw;max-width:30px;" />
+      </q-btn>
     </div>
     <div class="row">
       <div :class="'col-' + col + ' q-pr-md'" v-for="i in images" v-bind:key="i">

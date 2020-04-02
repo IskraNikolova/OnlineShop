@@ -1,5 +1,6 @@
 <template>
   <div class="row">
+   <div class="column-2"><q-btn size="xs" flat icon="close" @click="onRemoveFromList(article.id)" /></div>
    <div class="column q-pa-md">
       <q-img v-if="!isActive" :src="'./statics/res/' + article.image + '.png'" style="width:80vw;max-width:80px;" />
    </div>
@@ -43,8 +44,8 @@ export default {
     }
   },
   methods: {
-    onDeleteFromBag () {
-      // todo
+    onRemoveFromList (id) {
+      this.$emit('remove', id)
     },
     sub () {
       if (this.qt > 1) {

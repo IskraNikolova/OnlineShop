@@ -109,21 +109,28 @@
         <q-img v-if="!isActive" src="~assets/user.png" id="mImg" />
         <q-img v-if="!isActive" src="~assets/heart.png" id="mImg" />
         <q-img v-if="!isActive" src="~assets/bag.png" id="mImg" >
-          <q-menu square self="top left" :content-style="{ width: '38%' }">
+          <q-menu square self="top left" :content-style="{ width: '42%' }">
             <div class="no-wrap q-pa-md">
-                <div class="text-h7 q-mb-md">{{ constants.goToShoppingBag }}[2]</div>
-                <div v-for="article in mockData" v-bind:key="article.id">
-                  <BagArticle v-bind:article="article" />
-                </div>
+              <div class="text-h7 q-mb-md">{{ constants.goToShoppingBag }}[2]</div>
+              <div v-for="article in mockData" v-bind:key="article.id">
+                <BagArticle v-bind:article="article" @remove="onRemove"/>
+              </div>
+              <div style="text-align: right;" class="q-pr-xl">Total cost: 56.00</div>
+              <br />
+              <div class="q-pa-xs">
+                <q-btn :label="constants.continueShopping" v-close-popup />
+                <q-btn class="q-ml-md" color="black" :label="constants.toShoppingBag" @click="$router.push('/bag')"/>
+              </div>
             </div>
           </q-menu>
         </q-img>
+        <span v-if="!isActive" style="margin-top: 7px;margin-left: -18px;font-size:8px;">{{ mockData.length }}</span>
         <q-input v-if="isActive" style="height: 20px;" v-model="text">
           <template v-slot:append>
             <img class="q-pa-xs" src="~assets/search.png" @click="isActive = false" style="width:30vw;max-width:30px;">
           </template>
         </q-input>
-        <img v-if="!isActive" class="q-pa-xs" src="~assets/search.png" @click="isActive = true" style="width:30vw;max-width:30px;">
+        <img v-if="!isActive" class="q-pa-xs" src="~assets/search.png" @click="isActive = true" style="width:30vw;max-width:30px;margin-left:5px;">
       </q-toolbar>
     </q-header>
     <q-drawer
@@ -326,6 +333,11 @@ export default {
     changeLanguage () {
       const language = this.language === 'bg' ? 'en' : 'bg'
       this.$store.commit(SET_LANGUAGE, { language })
+    },
+    onRemove (id) {
+      // todo
+      this.mockData = this.mockData.filter(i => i.id !== id)
+      // stop close of menu after removing data
     }
   }
 }
