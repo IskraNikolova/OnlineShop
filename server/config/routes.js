@@ -1,7 +1,11 @@
-const user = require('../controllers/user-controller')
-const baseUser = '/api/users'
+const controllers = require('../controllers')
+const restrictedPages = require('./auth')
 
 module.exports = app => {
-  app.post(baseUser + '/register', user.register)
-  app.post(baseUser + '/login', user.login)
+  //users
+  app.post(controllers.user.baseUrl() + '/register', controllers.user.register)
+  app.post(controllers.user.baseUrl() + '/login', controllers.user.login)
+
+  //orders
+  app.post(controllers.order.baseUrl(), restrictedPages.isAuthed, controllers.order.send)
 }

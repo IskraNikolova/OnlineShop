@@ -18,9 +18,16 @@ module.exports = {
         roles: [],
         orders: []
       })
-      res.send(user)
+      req.logIn(user, (err, u) => {
+        if (err) {
+          res.locals.globalError = err
+          res.status(400).send(e.message)
+        } else {
+          res.status(201).send(user)
+        }
+      })
     } catch (e) {
-      res.status(500).send(e.message)
+      res.status(400).send(e.message)
     }
   },
   login: async (req, res) => {
@@ -35,13 +42,22 @@ module.exports = {
         errorHandler('Invalid password')
         return
       }
-      res.send(user)
+      req.logIn(user, (err, u) => {
+        if (err) {
+          errorHandler(err.message)
+        } else {
+          res.status(200).send(user)
+        }
+      })
     } catch (e) {
       errorHandler(e.message)
     }
   
     function errorHandler(e) {
-      res.status(500).send(e)
+      res.status(400).send(e)
     }
+  },
+  baseUrl: () => {
+    return '/api/users'
   }
 }
