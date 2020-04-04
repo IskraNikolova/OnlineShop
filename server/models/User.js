@@ -41,6 +41,7 @@ User.seedAdminUser = async () => {
       salt,      
       hashedPass,
       roles: ['Admin'],
+      orders: [],
       isAdmin: true})
   } catch (e) {
     console.log(e)
